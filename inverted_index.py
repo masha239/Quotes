@@ -1,6 +1,5 @@
 import re
 from copy import deepcopy
-
 from pymorphy2 import MorphAnalyzer
 
 
@@ -45,6 +44,8 @@ class InvertedIndex:
                     self.index[word].append([document_number, 1])
             else:
                 self.index[word] = [[document_number, 1]]
+
+        return document_number
 
     def find_quote(self, quote):
         words = re.sub(r'[^\w\s]', '', quote.lower()).split()
