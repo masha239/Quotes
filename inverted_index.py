@@ -38,8 +38,9 @@ class InvertedIndex:
             word = self.morph.normal_forms(word)[0]
 
             if word in self.index.keys():
-                if len(self.index[word]) > 0 and self.index[word][-1][0] == document_number:
-                    self.index[word][-1][1] += 1
+                last_document_idx = len(self.index[word]) - 1
+                if len(self.index[word]) > 0 and self.index[word][last_document_idx][0] == document_number:
+                    self.index[word][last_document_idx][1] += 1
                 else:
                     self.index[word].append([document_number, 1])
             else:

@@ -50,7 +50,8 @@ def find_dates(text):
 def letters_split(cutted_text, dates_info):
     starts = []
     for date in dates_info.values():
-        starts_date = [(match.start(), len(date)) for match in re.finditer(date.replace('(', '\(').replace(')', '\)'), cutted_text)]
+        improved_date = date.replace('(', '\(').replace(')', '\)')
+        starts_date = [(match.start(), len(date)) for match in re.finditer(improved_date, cutted_text)]
         starts += starts_date
     starts.sort()
     maybe_letters = [cutted_text[starts[i][0] + starts[i][1]: starts[i + 1][0]] for i in range(len(starts) - 1)]
@@ -101,7 +102,7 @@ def remove_invalid_symbols(letters):
                 letters[i] = letters[i].replace(words[j], new_word)
 
 
-def get_letters(url, outfile='chehow.pkl'):
+def get_letters(url, outfile='chekhov.pkl'):
     text = get_whole_text(url)
     cutted_text, dates_info = find_dates(text)
     letters = letters_split(cutted_text, dates_info)
